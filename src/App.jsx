@@ -9,6 +9,7 @@ import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import Home from './pages/Home';
 import Hub from './pages/Hub';
+import Benchmarks from './pages/Benchmarks';
 import Pricing from './pages/Pricing';
 import Examples from './pages/Examples';
 import Login from './pages/Login';
@@ -55,6 +56,7 @@ const AuthenticatedApp = () => {
       <Route path="/oauth/consent" element={<OAuthConsent />} />
       <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
         <Route path="/hub" element={<Hub />} />
+        <Route path="/benchmarks" element={<Benchmarks />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>

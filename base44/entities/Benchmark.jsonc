@@ -18,6 +18,15 @@
       "type": "string",
       "title": "Project / packet id"
     },
+    "target_url": {
+      "type": "string",
+      "title": "URL benchmarked"
+    },
+    "generator": {
+      "type": "string",
+      "title": "Agent / generator that produced the target",
+      "default": "external"
+    },
     "metric": {
       "type": "string",
       "title": "Metric name"
@@ -29,6 +38,11 @@
     "max_score": {
       "type": "number",
       "default": 100
+    },
+    "composite": {
+      "type": "number",
+      "title": "Composite score for the run",
+      "default": 0
     },
     "status": {
       "type": "string",
