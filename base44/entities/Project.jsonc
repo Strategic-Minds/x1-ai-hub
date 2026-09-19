@@ -1,0 +1,45 @@
+{
+  "name": "Project",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Project name"
+    },
+    "intent": {
+      "type": "string",
+      "title": "User intent",
+      "description": "The natural-language request that started the project"
+    },
+    "factory": {
+      "type": "string",
+      "title": "Routed factory"
+    },
+    "current_stage": {
+      "type": "string",
+      "title": "Current lifecycle stage"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planning",
+        "in_progress",
+        "awaiting_approval",
+        "preview",
+        "released"
+      ],
+      "default": "planning"
+    },
+    "progress": {
+      "type": "number",
+      "default": 0
+    },
+    "tenant_id": {
+      "type": "string",
+      "default": "TENANT-XTREME-SYSTEMS-001"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

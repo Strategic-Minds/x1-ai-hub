@@ -1,0 +1,51 @@
+{
+  "name": "WorkPacket",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "title": "Project"
+    },
+    "stage": {
+      "type": "string",
+      "title": "Lifecycle stage"
+    },
+    "title": {
+      "type": "string",
+      "title": "Packet title"
+    },
+    "generator": {
+      "type": "string",
+      "title": "Generator used"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "running",
+        "passed",
+        "failed",
+        "blocked"
+      ],
+      "default": "pending"
+    },
+    "action_class": {
+      "type": "string",
+      "enum": [
+        "READ",
+        "DRAFT",
+        "BRANCH_WRITE",
+        "PROTECTED"
+      ],
+      "default": "DRAFT"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "project_id",
+    "title"
+  ]
+}
