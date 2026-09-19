@@ -17,6 +17,22 @@
         "handler": "webScraper",
         "input_schema": { "type": "object", "properties": { "url": { "type": "string", "description": "The public http(s) URL to fetch" } }, "required": ["url"] },
         "annotations": { "read_only_hint": true, "destructive_hint": false, "idempotent_hint": true }
+      },
+      {
+        "name": "supabase_exec",
+        "title": "Run Supabase SQL",
+        "description": "Run a SQL query against the connected Supabase project. Set write=true for INSERT/UPDATE/DELETE/DDL; omit for read-only SELECT. Admin only.",
+        "handler": "supabaseExec",
+        "input_schema": { "type": "object", "properties": { "query": { "type": "string", "description": "The SQL statement to run" }, "write": { "type": "boolean", "description": "True for writes (INSERT/UPDATE/DELETE/DDL); false for read-only SELECT" } }, "required": ["query"] },
+        "annotations": { "read_only_hint": false, "destructive_hint": true, "idempotent_hint": false }
+      },
+      {
+        "name": "drive_manage",
+        "title": "Manage Google Drive files",
+        "description": "List/search files or upload a generated document to the connected Google Drive. action=list with optional q (Drive query string), or action=upload with name, content, and mimeType. Admin only.",
+        "handler": "driveManager",
+        "input_schema": { "type": "object", "properties": { "action": { "type": "string", "description": "list or upload" }, "q": { "type": "string", "description": "Drive query string for list (optional)" }, "name": { "type": "string", "description": "Filename for upload" }, "content": { "type": "string", "description": "File text content for upload" }, "mimeType": { "type": "string", "description": "MIME type for upload, default text/plain" } }, "required": ["action"] },
+        "annotations": { "read_only_hint": false, "destructive_hint": false, "idempotent_hint": false }
       }
     ]
   }
