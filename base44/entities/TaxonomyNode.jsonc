@@ -1,0 +1,34 @@
+{
+  "name": "TaxonomyNode",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "title": "Node key"
+    },
+    "name": {
+      "type": "string",
+      "title": "Display name"
+    },
+    "parent_key": {
+      "type": "string",
+      "title": "Parent node key"
+    },
+    "level": {
+      "type": "number",
+      "default": 0
+    },
+    "domain": {
+      "type": "string",
+      "title": "Domain (industry / size / type / capability)"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    }
+  },
+  "required": [
+    "key",
+    "name"
+  ]
+}

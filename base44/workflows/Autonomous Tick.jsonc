@@ -1,0 +1,44 @@
+{
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "*/5 * * * *",
+      "one_time_date": null,
+      "timezone": "America/New_York",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "name": "Autonomous Tick",
+  "description": "24/7 operating system tick \u2014 advances all in-progress projects one stage through the deterministic assembly line every 5 minutes, runs validation gates, and writes audit receipts.",
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "autonomous_tick",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "tick": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "autonomousOrchestrator"
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Run autonomous tick",
+            "description": "Advance projects one stage"
+          }
+        }
+      }
+    ]
+  }
+}

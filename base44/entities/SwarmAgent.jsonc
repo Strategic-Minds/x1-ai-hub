@@ -1,0 +1,47 @@
+{
+  "name": "SwarmAgent",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Agent name"
+    },
+    "role": {
+      "type": "string",
+      "title": "Swarm role (planner/builder/validator/operator)"
+    },
+    "model": {
+      "type": "string",
+      "default": "automatic"
+    },
+    "system_prompt": {
+      "type": "string",
+      "title": "Agent instructions"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "idle",
+        "running",
+        "blocked",
+        "done"
+      ],
+      "default": "idle"
+    },
+    "parent_id": {
+      "type": "string",
+      "title": "Parent agent in the swarm"
+    }
+  },
+  "required": [
+    "name",
+    "role"
+  ]
+}

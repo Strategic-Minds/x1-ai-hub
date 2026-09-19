@@ -1,0 +1,34 @@
+{
+  "name": "Skill",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "title": "Skill key"
+    },
+    "name": {
+      "type": "string",
+      "title": "Display name"
+    },
+    "description": {
+      "type": "string",
+      "title": "What this skill does"
+    },
+    "capability_key": {
+      "type": "string",
+      "title": "Linked capability"
+    },
+    "prompt_fragment": {
+      "type": "string",
+      "title": "System-prompt fragment injected when active"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "key",
+    "name"
+  ]
+}

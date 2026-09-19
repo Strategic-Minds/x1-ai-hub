@@ -1,0 +1,23 @@
+{
+  "auth": "oauth",
+  "tools": {
+    "functions": [
+      {
+        "name": "run_autonomous_tick",
+        "title": "Run autonomous tick",
+        "description": "Advance all in-progress projects one stage through the deterministic assembly line. Runs the five validation gates, writes work packets and immutable audit receipts, and halts at protected stages that need human approval. Call to make progress on builds autonomously.",
+        "handler": "autonomousOrchestrator",
+        "input_schema": { "type": "object", "properties": {} },
+        "annotations": { "read_only_hint": false, "destructive_hint": false, "idempotent_hint": true }
+      },
+      {
+        "name": "scrape_url",
+        "title": "Scrape a URL",
+        "description": "Fetch a public URL and return its title, text content, and up to 100 links. Use for research, lead generation, and benchmarking. Admin only.",
+        "handler": "webScraper",
+        "input_schema": { "type": "object", "properties": { "url": { "type": "string", "description": "The public http(s) URL to fetch" } }, "required": ["url"] },
+        "annotations": { "read_only_hint": true, "destructive_hint": false, "idempotent_hint": true }
+      }
+    ]
+  }
+}

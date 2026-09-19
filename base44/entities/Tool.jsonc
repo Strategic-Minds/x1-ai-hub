@@ -1,0 +1,45 @@
+{
+  "name": "Tool",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "title": "Tool key"
+    },
+    "name": {
+      "type": "string",
+      "title": "Display name"
+    },
+    "description": {
+      "type": "string",
+      "title": "What the tool does"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "mcp",
+        "function",
+        "connector",
+        "external"
+      ],
+      "default": "function"
+    },
+    "endpoint": {
+      "type": "string",
+      "title": "Handler / endpoint / connector id"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "requires_approval": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "key",
+    "name",
+    "type"
+  ]
+}

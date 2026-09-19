@@ -1,0 +1,44 @@
+{
+  "name": "CronJob",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Job name"
+    },
+    "description": {
+      "type": "string",
+      "title": "What this job does"
+    },
+    "schedule": {
+      "type": "string",
+      "title": "Cron / interval expression"
+    },
+    "workflow_name": {
+      "type": "string",
+      "title": "Workflow that runs this job"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "last_run": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_status": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "error",
+        "idle"
+      ],
+      "default": "idle"
+    }
+  },
+  "required": [
+    "name",
+    "schedule",
+    "workflow_name"
+  ]
+}

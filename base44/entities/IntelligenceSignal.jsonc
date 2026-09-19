@@ -1,0 +1,43 @@
+{
+  "name": "IntelligenceSignal",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "title": "Signal key"
+    },
+    "metric": {
+      "type": "string",
+      "title": "Metric name"
+    },
+    "value": {
+      "type": "number",
+      "default": 0
+    },
+    "unit": {
+      "type": "string",
+      "title": "Unit"
+    },
+    "trend": {
+      "type": "string",
+      "enum": [
+        "up",
+        "down",
+        "flat"
+      ],
+      "default": "flat"
+    },
+    "source": {
+      "type": "string",
+      "title": "Where it was captured"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "key",
+    "metric"
+  ]
+}

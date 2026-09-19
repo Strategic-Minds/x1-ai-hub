@@ -1,0 +1,57 @@
+{
+  "name": "Benchmark",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Benchmark name"
+    },
+    "category": {
+      "type": "string",
+      "title": "Category (static/functional/security/visual/operational)"
+    },
+    "target_type": {
+      "type": "string",
+      "title": "What was benchmarked"
+    },
+    "target_id": {
+      "type": "string",
+      "title": "Project / packet id"
+    },
+    "metric": {
+      "type": "string",
+      "title": "Metric name"
+    },
+    "score": {
+      "type": "number",
+      "default": 0
+    },
+    "max_score": {
+      "type": "number",
+      "default": 100
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "fail",
+        "pending",
+        "skipped"
+      ],
+      "default": "pending"
+    },
+    "run_id": {
+      "type": "string",
+      "title": "Run / receipt reference"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "name",
+    "category",
+    "metric"
+  ]
+}

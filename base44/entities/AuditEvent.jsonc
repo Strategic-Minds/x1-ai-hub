@@ -1,0 +1,58 @@
+{
+  "name": "AuditEvent",
+  "type": "object",
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "title": "Event type"
+    },
+    "actor": {
+      "type": "string",
+      "enum": [
+        "user",
+        "system",
+        "agent",
+        "connector"
+      ],
+      "default": "system"
+    },
+    "action": {
+      "type": "string",
+      "title": "Action taken"
+    },
+    "target_type": {
+      "type": "string",
+      "title": "Entity / resource affected"
+    },
+    "target_id": {
+      "type": "string",
+      "title": "Record id affected"
+    },
+    "details": {
+      "type": "string",
+      "title": "JSON or human-readable detail"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "warn",
+        "error",
+        "critical"
+      ],
+      "default": "info"
+    },
+    "receipt_id": {
+      "type": "string",
+      "title": "Immutable receipt reference"
+    },
+    "rollback_ref": {
+      "type": "string",
+      "title": "Rollback reference captured before change"
+    }
+  },
+  "required": [
+    "event_type",
+    "action"
+  ]
+}

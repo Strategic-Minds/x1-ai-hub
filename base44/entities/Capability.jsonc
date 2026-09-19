@@ -1,0 +1,49 @@
+{
+  "name": "Capability",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "title": "Capability key"
+    },
+    "name": {
+      "type": "string",
+      "title": "Display name"
+    },
+    "category": {
+      "type": "string",
+      "title": "Category"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    },
+    "action_class": {
+      "type": "string",
+      "enum": [
+        "READ",
+        "DRAFT",
+        "BRANCH_WRITE",
+        "PROTECTED"
+      ],
+      "default": "DRAFT"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "requires_approval": {
+      "type": "boolean",
+      "default": false
+    },
+    "entitlement_tier": {
+      "type": "string",
+      "default": "trial"
+    }
+  },
+  "required": [
+    "key",
+    "name",
+    "category"
+  ]
+}
