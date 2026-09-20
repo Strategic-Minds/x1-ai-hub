@@ -17,8 +17,8 @@ export default function SiteNav() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         <Link to="/" className="flex items-center gap-2">
-          <img src="https://media.base44.com/images/public/workspaces/69b98b0a75d69ef410a89851/brands/9eb8ac0da_brand_upload_logo.png" alt="AI HUB logo" className="h-9 w-9 object-contain" />
-          <span className="text-lg font-black tracking-tight">AI HUB</span>
+          <img src="https://media.base44.com/images/public/workspaces/69b98b0a75d69ef410a89851/brands/9eb8ac0da_brand_upload_logo.png" alt="AI App Factory logo" className="h-9 w-9 object-contain" />
+          <span className="text-lg font-black tracking-tight">AI App Factory</span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
