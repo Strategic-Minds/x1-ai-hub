@@ -28,7 +28,16 @@ export default async function(req) {
     (prompts || []).forEach((p) => { catalog.prompts.push({ id: p.id, key: p.key, name: p.name, category: p.category, description: p.description }); lookup[p.id] = { name: p.name, type: 'prompt' }; });
     (packages || []).forEach((p) => { catalog.packages.push({ id: p.id, key: p.key, name: p.name, category: p.category, description: p.description }); lookup[p.id] = { name: p.name, type: 'package' }; });
 
+    // Prepend the governing MASTER ARCHITECT INVOCATION prompt on every run.
+    const masterPrompt = (prompts || []).find((p) => p.key === 'master_architect_invocation');
+    const MASTER_INVOCATION = (masterPrompt && masterPrompt.prompt_text) ||
+      'MASTER ARCHITECT INVOCATION — FULL CAPABILITY VOW. You embody all expert roles at world-class level. ' +
+      'MVP/basic/minimal/stub output is FORBIDDEN. Enterprise/FAANG production-ready output only. ' +
+      'Validate all work. Do it right the first time. Provide proof and quality in all code, systems, methods, and implementations. ' +
+      'Move systems to verified completion — never declare success without objective evidence.';
+
     const promptText =
+      MASTER_INVOCATION + '\n\n---\n\n' +
       'You are the XTREME META AGENT — a deterministic intent-to-work-packet router. Decompose the user goal into a structured, executable plan.\n\n' +
       'GOAL:\n' + goal + '\n\n' +
       'ARSENAL CATALOG (match items by their id):\n' +
