@@ -11,6 +11,8 @@ import Home from './pages/Home';
 import Hub from './pages/Hub';
 import Benchmarks from './pages/Benchmarks';
 import Chat from './pages/Chat';
+import MetaAgent from './pages/MetaAgent';
+import Validation from './pages/Validation';
 import Pricing from './pages/Pricing';
 import Examples from './pages/Examples';
 import Login from './pages/Login';
@@ -59,6 +61,8 @@ const AuthenticatedApp = () => {
         <Route path="/hub" element={<Hub />} />
         <Route path="/benchmarks" element={<Benchmarks />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/meta-agent" element={<MetaAgent />} />
+        <Route path="/validation" element={<Validation />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>

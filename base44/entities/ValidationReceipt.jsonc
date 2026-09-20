@@ -1,0 +1,46 @@
+{
+  "name": "ValidationReceipt",
+  "type": "object",
+  "properties": {
+    "work_packet_id": {
+      "type": "string",
+      "title": "Work packet"
+    },
+    "session_id": {
+      "type": "string",
+      "title": "Meta session"
+    },
+    "check_name": {
+      "type": "string",
+      "title": "Validation check"
+    },
+    "expected": {
+      "type": "string"
+    },
+    "actual": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PASS",
+        "FAIL",
+        "BLOCKED",
+        "PENDING",
+        "MISSING_EVIDENCE"
+      ],
+      "default": "PENDING"
+    },
+    "evidence": {
+      "type": "string"
+    },
+    "validator": {
+      "type": "string",
+      "default": "independent"
+    }
+  },
+  "required": [
+    "work_packet_id",
+    "check_name"
+  ]
+}

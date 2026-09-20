@@ -1,0 +1,36 @@
+{
+  "name": "CommandRun",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "title": "Meta session"
+    },
+    "command": {
+      "type": "string",
+      "title": "Command slug"
+    },
+    "parameters": {
+      "type": "string",
+      "title": "Command parameters"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "QUEUED",
+        "RUNNING",
+        "COMPLETE",
+        "FAILED",
+        "UNAVAILABLE"
+      ],
+      "default": "QUEUED"
+    },
+    "result_summary": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "session_id",
+    "command"
+  ]
+}

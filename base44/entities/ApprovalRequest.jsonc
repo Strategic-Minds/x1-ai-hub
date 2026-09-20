@@ -1,0 +1,45 @@
+{
+  "name": "ApprovalRequest",
+  "type": "object",
+  "properties": {
+    "work_packet_id": {
+      "type": "string",
+      "title": "Work packet"
+    },
+    "session_id": {
+      "type": "string",
+      "title": "Meta session"
+    },
+    "action": {
+      "type": "string",
+      "title": "Action requiring approval"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "risk_class": {
+      "type": "string",
+      "enum": [
+        "READ",
+        "DRAFT",
+        "BRANCH_WRITE",
+        "PROTECTED"
+      ],
+      "default": "PROTECTED"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "APPROVED",
+        "DENIED",
+        "EXPIRED"
+      ],
+      "default": "PENDING"
+    }
+  },
+  "required": [
+    "work_packet_id",
+    "action"
+  ]
+}

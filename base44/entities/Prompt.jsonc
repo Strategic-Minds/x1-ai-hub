@@ -1,0 +1,47 @@
+{
+  "name": "Prompt",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "title": "Prompt key"
+    },
+    "name": {
+      "type": "string",
+      "title": "Display name"
+    },
+    "category": {
+      "type": "string",
+      "title": "Category"
+    },
+    "description": {
+      "type": "string",
+      "title": "What this prompt produces"
+    },
+    "prompt_text": {
+      "type": "string",
+      "title": "Prompt body"
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": [
+        "VERIFIED",
+        "UNVERIFIED",
+        "CURATED",
+        "DISCOVERED"
+      ],
+      "default": "CURATED"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    }
+  },
+  "required": [
+    "key",
+    "name"
+  ]
+}

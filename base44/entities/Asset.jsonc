@@ -1,0 +1,82 @@
+{
+  "name": "Asset",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "title": "Asset key"
+    },
+    "name": {
+      "type": "string",
+      "title": "Display name"
+    },
+    "category": {
+      "type": "string",
+      "title": "Category"
+    },
+    "description": {
+      "type": "string",
+      "title": "What this asset does"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "tool",
+        "template",
+        "skill",
+        "agent",
+        "workflow",
+        "generator",
+        "mcp",
+        "model",
+        "connector",
+        "pattern"
+      ],
+      "default": "tool"
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": [
+        "VERIFIED",
+        "UNVERIFIED",
+        "CURATED",
+        "DISCOVERED",
+        "DEPRECATED"
+      ],
+      "default": "CURATED"
+    },
+    "license_status": {
+      "type": "string",
+      "default": "open"
+    },
+    "integration_complexity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium"
+    },
+    "cost": {
+      "type": "string",
+      "default": "free"
+    },
+    "dependencies": {
+      "type": "string",
+      "title": "Comma-separated dependency keys"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    }
+  },
+  "required": [
+    "key",
+    "name",
+    "category"
+  ]
+}

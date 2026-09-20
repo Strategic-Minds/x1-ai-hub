@@ -8,6 +8,8 @@ const NAV = [
   { label: "Pricing", to: "/pricing" },
   { label: "Command Center", to: "/hub" },
   { label: "AI Chat", to: "/chat" },
+  { label: "Meta Agent", to: "/meta-agent" },
+  { label: "Validation", to: "/validation" },
 ];
 
 export default function SiteNav() {

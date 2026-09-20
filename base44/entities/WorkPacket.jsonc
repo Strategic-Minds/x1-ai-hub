@@ -4,7 +4,11 @@
   "properties": {
     "project_id": {
       "type": "string",
-      "title": "Project"
+      "title": "Project (assembly line)"
+    },
+    "session_id": {
+      "type": "string",
+      "title": "Meta session"
     },
     "stage": {
       "type": "string",
@@ -14,6 +18,14 @@
       "type": "string",
       "title": "Packet title"
     },
+    "objective": {
+      "type": "string",
+      "title": "Objective"
+    },
+    "phase": {
+      "type": "string",
+      "title": "Phase"
+    },
     "generator": {
       "type": "string",
       "title": "Generator used"
@@ -21,13 +33,25 @@
     "status": {
       "type": "string",
       "enum": [
+        "DRAFT",
+        "READY",
+        "BLOCKED",
+        "WAITING_DEPENDENCY",
+        "WAITING_APPROVAL",
+        "QUEUED",
+        "RUNNING",
+        "VALIDATING",
+        "FAILED",
+        "REPAIR_REQUIRED",
+        "PASSED",
+        "COMPLETE",
         "pending",
         "running",
         "passed",
         "failed",
         "blocked"
       ],
-      "default": "pending"
+      "default": "DRAFT"
     },
     "action_class": {
       "type": "string",
@@ -39,13 +63,55 @@
       ],
       "default": "DRAFT"
     },
-    "notes": {
+    "risk_class": {
       "type": "string",
-      "title": "Notes"
+      "enum": [
+        "READ",
+        "DRAFT",
+        "BRANCH_WRITE",
+        "PROTECTED"
+      ],
+      "default": "DRAFT"
+    },
+    "inputs": {
+      "type": "string"
+    },
+    "outputs": {
+      "type": "string"
+    },
+    "dependencies": {
+      "type": "string",
+      "title": "Comma-separated packet titles"
+    },
+    "acceptance_criteria": {
+      "type": "string"
+    },
+    "validation_requirements": {
+      "type": "string"
+    },
+    "allowed_actions": {
+      "type": "string"
+    },
+    "forbidden_actions": {
+      "type": "string"
+    },
+    "recommended_executor": {
+      "type": "string"
+    },
+    "preferred_executor": {
+      "type": "string"
+    },
+    "fallback_executor": {
+      "type": "string"
+    },
+    "rollback_requirements": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
     }
   },
   "required": [
-    "project_id",
     "title"
   ]
 }

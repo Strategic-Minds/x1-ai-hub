@@ -1,0 +1,48 @@
+{
+  "name": "Package",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "title": "Package key"
+    },
+    "name": {
+      "type": "string",
+      "title": "Display name"
+    },
+    "category": {
+      "type": "string",
+      "title": "Category"
+    },
+    "description": {
+      "type": "string",
+      "title": "What this package bundles"
+    },
+    "contents": {
+      "type": "string",
+      "title": "Bundled asset / prompt keys"
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": [
+        "VERIFIED",
+        "UNVERIFIED",
+        "CURATED",
+        "DISCOVERED"
+      ],
+      "default": "CURATED"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    }
+  },
+  "required": [
+    "key",
+    "name",
+    "category"
+  ]
+}

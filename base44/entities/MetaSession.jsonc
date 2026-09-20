@@ -1,0 +1,77 @@
+{
+  "name": "MetaSession",
+  "type": "object",
+  "properties": {
+    "goal": {
+      "type": "string",
+      "title": "User goal"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "NEW",
+        "ANALYZING",
+        "MATCHING",
+        "GAP_ANALYSIS",
+        "PLANNED",
+        "WAITING_APPROVAL",
+        "READY",
+        "IN_PROGRESS",
+        "VALIDATING",
+        "BLOCKED",
+        "COMPLETE"
+      ],
+      "default": "NEW"
+    },
+    "system_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "intent_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "summary": {
+      "type": "string",
+      "title": "What the agent understood"
+    },
+    "architecture": {
+      "type": "string",
+      "title": "Recommended architecture"
+    },
+    "current_phase": {
+      "type": "string",
+      "default": "NEW"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "READ",
+        "DRAFT",
+        "BRANCH_WRITE",
+        "PROTECTED"
+      ],
+      "default": "DRAFT"
+    },
+    "readiness_score": {
+      "type": "number",
+      "default": 0
+    },
+    "readiness_breakdown": {
+      "type": "string",
+      "title": "JSON readiness breakdown"
+    },
+    "next_action": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "goal"
+  ]
+}

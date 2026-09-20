@@ -1,0 +1,40 @@
+{
+  "name": "WorkPacketAsset",
+  "type": "object",
+  "properties": {
+    "work_packet_id": {
+      "type": "string",
+      "title": "Work packet"
+    },
+    "asset_id": {
+      "type": "string",
+      "title": "Arsenal item id"
+    },
+    "asset_type": {
+      "type": "string",
+      "title": "asset / prompt / package"
+    },
+    "asset_name": {
+      "type": "string",
+      "title": "Denormalized name"
+    },
+    "relationship": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "default": "medium"
+    }
+  },
+  "required": [
+    "asset_id"
+  ]
+}

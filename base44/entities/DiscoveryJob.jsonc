@@ -1,0 +1,74 @@
+{
+  "name": "DiscoveryJob",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "title": "Meta session"
+    },
+    "query": {
+      "type": "string",
+      "title": "What to discover"
+    },
+    "category": {
+      "type": "string",
+      "title": "Gap category / status"
+    },
+    "reason": {
+      "type": "string",
+      "title": "Why this discovery is needed"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "RUNNING",
+        "COMPLETE",
+        "FAILED",
+        "BLOCKED"
+      ],
+      "default": "PENDING"
+    },
+    "source_requirements": {
+      "type": "string"
+    },
+    "official_sources_preferred": {
+      "type": "boolean",
+      "default": true
+    },
+    "github_allowed": {
+      "type": "boolean",
+      "default": true
+    },
+    "open_source_only": {
+      "type": "boolean",
+      "default": false
+    },
+    "commercial_use_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "free_only": {
+      "type": "boolean",
+      "default": false
+    },
+    "maximum_results": {
+      "type": "number",
+      "default": 10
+    },
+    "freshness_requirement": {
+      "type": "string"
+    },
+    "validation_requirements": {
+      "type": "string"
+    },
+    "results": {
+      "type": "string",
+      "title": "Ingested results JSON"
+    }
+  },
+  "required": [
+    "session_id",
+    "query"
+  ]
+}
