@@ -10,6 +10,8 @@ const NAV = [
   { label: "AI Chat", to: "/chat" },
   { label: "Meta Agent", to: "/meta-agent" },
   { label: "Validation", to: "/validation" },
+  { label: "Dashboard", to: "/dashboard" },
+  { label: "MCP Generator", to: "/mcp-generator" },
   { label: "Admin", to: "/admin" },
 ];
 

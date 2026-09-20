@@ -16,6 +16,8 @@ import AdminGovernance from './pages/admin/Governance';
 import AdminRegistries from './pages/admin/Registries';
 import AdminBenchmarks from './pages/admin/Benchmarks';
 import AdminVault from './pages/admin/Vault';
+import Dashboard from './pages/Dashboard';
+import McpGenerator from './pages/McpGenerator';
 import Home from './pages/Home';
 import Hub from './pages/Hub';
 import Benchmarks from './pages/Benchmarks';
@@ -84,6 +86,8 @@ const AuthenticatedApp = () => {
           <Route path="benchmarks" element={<AdminBenchmarks />} />
           <Route path="vault" element={<AdminVault />} />
         </Route>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/mcp-generator" element={<McpGenerator />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
