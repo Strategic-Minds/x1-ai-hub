@@ -10,6 +10,7 @@ const NAV = [
   { label: "AI Chat", to: "/chat" },
   { label: "Meta Agent", to: "/meta-agent" },
   { label: "Validation", to: "/validation" },
+  { label: "Admin", to: "/admin" },
 ];
 
 export default function SiteNav() {

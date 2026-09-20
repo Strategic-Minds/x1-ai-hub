@@ -7,6 +7,15 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import AdminPortal from './pages/admin/AdminPortal';
+import AdminOverview from './pages/admin/Overview';
+import AdminStrategy from './pages/admin/Strategy';
+import AdminAnalytics from './pages/admin/Analytics';
+import AdminArsenal from './pages/admin/Arsenal';
+import AdminGovernance from './pages/admin/Governance';
+import AdminRegistries from './pages/admin/Registries';
+import AdminBenchmarks from './pages/admin/Benchmarks';
+import AdminVault from './pages/admin/Vault';
 import Home from './pages/Home';
 import Hub from './pages/Hub';
 import Benchmarks from './pages/Benchmarks';
@@ -65,6 +74,16 @@ const AuthenticatedApp = () => {
         <Route path="/chat" element={<Chat />} />
         <Route path="/meta-agent" element={<MetaAgent />} />
         <Route path="/validation" element={<Validation />} />
+        <Route path="/admin" element={<AdminPortal />}>
+          <Route index element={<AdminOverview />} />
+          <Route path="strategy" element={<AdminStrategy />} />
+          <Route path="analytics" element={<AdminAnalytics />} />
+          <Route path="arsenal" element={<AdminArsenal />} />
+          <Route path="governance" element={<AdminGovernance />} />
+          <Route path="registries" element={<AdminRegistries />} />
+          <Route path="benchmarks" element={<AdminBenchmarks />} />
+          <Route path="vault" element={<AdminVault />} />
+        </Route>
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>

@@ -1,0 +1,61 @@
+{
+  "name": "PaperTrade",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "title": "Asset symbol"
+    },
+    "side": {
+      "type": "string",
+      "enum": [
+        "LONG",
+        "SHORT"
+      ],
+      "default": "LONG"
+    },
+    "entry_price": {
+      "type": "number",
+      "default": 0
+    },
+    "exit_price": {
+      "type": "number",
+      "default": 0
+    },
+    "quantity": {
+      "type": "number",
+      "default": 1
+    },
+    "pnl": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "OPEN",
+        "CLOSED"
+      ],
+      "default": "OPEN"
+    },
+    "strategy": {
+      "type": "string",
+      "title": "Strategy / signal source"
+    },
+    "opened_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "closed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "symbol",
+    "side"
+  ]
+}
