@@ -7,6 +7,7 @@ const NAV = [
   { label: "Factories", to: "/examples" },
   { label: "Pricing", to: "/pricing" },
   { label: "Command Center", to: "/hub" },
+  { label: "AI Chat", to: "/chat" },
 ];
 
 export default function SiteNav() {

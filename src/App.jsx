@@ -10,6 +10,7 @@ import ProtectedRoute from '@/components/ProtectedRoute';
 import Home from './pages/Home';
 import Hub from './pages/Hub';
 import Benchmarks from './pages/Benchmarks';
+import Chat from './pages/Chat';
 import Pricing from './pages/Pricing';
 import Examples from './pages/Examples';
 import Login from './pages/Login';
@@ -57,6 +58,7 @@ const AuthenticatedApp = () => {
       <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
         <Route path="/hub" element={<Hub />} />
         <Route path="/benchmarks" element={<Benchmarks />} />
+        <Route path="/chat" element={<Chat />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>

@@ -1,0 +1,22 @@
+{
+  "name": "ChatSession",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "title": "Session title"
+    },
+    "model": {
+      "type": "string",
+      "title": "Default model",
+      "default": "automatic"
+    },
+    "last_message": {
+      "type": "string",
+      "title": "Last message preview"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}
