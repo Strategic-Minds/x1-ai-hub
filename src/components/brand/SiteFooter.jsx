@@ -8,8 +8,8 @@ export default function SiteFooter() {
         <div className="grid gap-8 md:grid-cols-4">
           <div>
             <div className="flex items-center gap-2">
-              <img src="https://media.base44.com/images/public/workspaces/69b98b0a75d69ef410a89851/brands/9eb8ac0da_brand_upload_logo.png" alt="AI App Factory" className="h-8 w-8 object-contain" />
-              <span className="text-base font-black">AI App Factory</span>
+              <img src="https://media.base44.com/images/public/workspaces/69b98b0a75d69ef410a89851/brands/9eb8ac0da_brand_upload_logo.png" alt="AI HUB" className="h-8 w-8 object-contain" />
+              <span className="text-base font-black">AI HUB</span>
             </div>
             <p className="mt-3 text-sm text-muted-foreground">Connect your AI. Give it an operating system.</p>
           </div>
@@ -38,7 +38,7 @@ export default function SiteFooter() {
           </div>
         </div>
         <div className="mt-10 border-t border-border pt-6 text-xs text-muted-foreground">
-          © {new Date().getFullYear()} AI App Factory · Xtreme Systems. Deterministic capability operating system. Packet v1.0.0-draft.
+          © {new Date().getFullYear()} AI HUB · Xtreme Systems. Deterministic capability operating system. Packet v1.0.0-draft.
         </div>
       </div>
     </footer>
