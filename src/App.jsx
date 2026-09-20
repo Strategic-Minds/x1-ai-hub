@@ -15,6 +15,7 @@ import MetaAgent from './pages/MetaAgent';
 import Validation from './pages/Validation';
 import Pricing from './pages/Pricing';
 import Examples from './pages/Examples';
+import XtremeBrowser from './pages/XtremeBrowser';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
@@ -52,6 +53,7 @@ const AuthenticatedApp = () => {
       <Route path="/" element={<Home />} />
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/examples" element={<Examples />} />
+      <Route path="/xtreme-browser" element={<XtremeBrowser />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />

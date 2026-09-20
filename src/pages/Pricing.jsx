@@ -1,48 +1,177 @@
-import React, { useState } from "react";
+import React from "react";
 import SiteNav from "@/components/brand/SiteNav";
 import SiteFooter from "@/components/brand/SiteFooter";
 import PricingCard from "@/components/brand/PricingCard";
-import { PillBadge } from "@/components/brand/BrandButton";
+import { PillBadge, WideLink, OutlineLink, ArrowRight } from "@/components/brand/BrandButton";
 
-const TIERS = [
-  { key: "trial", name: "7-Day Trial", intro: "Explore the full assembly line", price: "$0", period: "/7 days", cta: "Start trial", features: ["1 website project","One representative feature per category","Full preview workspace","No protected actions","No card required"] },
-  { key: "creator", name: "Creator", intro: "For solo builders", price: "$49", period: "/mo", cta: "Choose Creator", features: ["Unlimited draft projects","Governed generators","MCP tool access","Approvals required for protected actions","Email support"] },
-  { key: "builder", name: "Builder", intro: "For growing teams", price: "$149", period: "/mo", cta: "Choose Builder", features: ["Everything in Creator","Multiple factories","Connector registry","Validation receipts","Rollback references"] },
-  { key: "pro", name: "Pro", intro: "For active operators", price: "$499", period: "/mo", cta: "Choose Pro", features: ["Everything in Builder","Parallel validation DAG","Agent & swarm registry","Priority support","Usage analytics"] },
-  { key: "agency", name: "Agency", intro: "Done-for-you growth", price: "$1499", period: "/mo", cta: "Choose Agency", features: ["Everything in Pro","Managed growth service","Approval workflows","Multi-tenant isolation","Dedicated success manager"], highlighted: true },
-  { key: "enterprise", name: "Enterprise", intro: "Custom governance at scale", price: "Custom", period: "", cta: "Contact sales", features: ["Everything in Agency","SSO / OIDC","Custom policy matrix","Audit event export","SLA & onboarding"] },
+// À la carte product catalog — each product is a standalone subscription.
+const PRODUCTS = [
+  {
+    key: "x1-predict",
+    name: "X1 Predict",
+    intro: "Crypto creation + asset prediction simulator",
+    price: "$29",
+    period: "/mo",
+    cta: "Get X1 Predict",
+    badge: "NEW",
+    features: [
+      "Token + asset prediction simulator",
+      "Scenario modeling engine",
+      "Backtesting against historical data",
+      "Deterministic prediction receipts",
+      "Exportable model artifacts",
+    ],
+  },
+  {
+    key: "xtreme-browser",
+    name: "Xtreme Browser",
+    intro: "Cloud browser automation + scraper system",
+    price: "$99",
+    period: "/mo",
+    cta: "Get Xtreme Browser",
+    features: [
+      "Cloud browser sessions (1,000/mo included)",
+      "Stealth scraper system",
+      "Structured data extraction",
+      "Session replay + receipts",
+      "MCP tool access",
+    ],
+  },
+  {
+    key: "xtreme-comms",
+    name: "Xtreme Comms",
+    intro: "SMS, MMS, Voice & WhatsApp — beta",
+    price: "$139",
+    period: "/mo",
+    cta: "Join the beta",
+    badge: "BETA",
+    features: [
+      "SMS + MMS sending",
+      "Voice (TTS + transcription)",
+      "WhatsApp messaging (beta)",
+      "Number provisioning",
+      "Delivery receipts + audit log",
+    ],
+  },
+  {
+    key: "vision-cortex",
+    name: "Vision Cortex",
+    intro: "Simulation engine for visual + spatial models",
+    price: "$199",
+    period: "/mo",
+    cta: "Get Vision Cortex",
+    features: [
+      "Visual + spatial simulation engine",
+      "Scene + environment modeling",
+      "Deterministic render receipts",
+      "Exportable simulation artifacts",
+      "MCP tool access",
+    ],
+  },
+];
+
+const BUNDLE = {
+  key: "all-access",
+  name: "All-Access Bundle",
+  intro: "All four products, one seat",
+  price: "$299",
+  period: "/mo",
+  cta: "Get the bundle",
+  highlighted: true,
+  features: [
+    "Everything in X1 Predict",
+    "Everything in Xtreme Browser",
+    "Everything in Xtreme Comms (beta)",
+    "Everything in Vision Cortex",
+    "Priority support + validation receipts",
+  ],
+};
+
+// Browserbase-style metered browser usage (add-on to Xtreme Browser).
+const USAGE_TIERS = [
+  { tier: "Starter", sessions: "1,000 / mo", overage: "$0.05 / session", note: "Included with Xtreme Browser" },
+  { tier: "Scale", sessions: "25,000 / mo", overage: "$0.035 / session", note: "Volume pricing" },
+  { tier: "Enterprise", sessions: "Custom", overage: "Custom volume pricing", note: "Dedicated capacity + SLA" },
 ];
 
 export default function Pricing() {
-  const [annual, setAnnual] = useState(false);
   return (
     <div className="min-h-screen bg-background">
       <SiteNav />
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+        {/* Header */}
         <div className="text-center">
-          <div className="mb-4 flex justify-center"><PillBadge>Preview Pricing</PillBadge></div>
-          <h1 className="text-3xl font-black sm:text-5xl">Six tiers. Governed entitlements.</h1>
-          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">Locked capabilities stay visible with Upgrade to Try. Entitlement enforcement is server-side — the LLM cannot bypass it.</p>
+          <div className="mb-4 flex justify-center"><PillBadge>À la carte · Build your stack</PillBadge></div>
+          <h1 className="text-3xl font-black sm:text-5xl">Pick your products. Pay for what you use.</h1>
+          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+            Four standalone products — X1 Predict, Xtreme Browser, Xtreme Comms, and Vision Cortex — or take the All-Access Bundle.
+            Browser usage is metered separately, Browserbase-style.
+          </p>
         </div>
 
-        <div className="mt-8 flex justify-center">
-          <div className="xa-tabs">
-            <label><input type="radio" name="bill" checked={!annual} onChange={() => setAnnual(false)} /><span>Monthly</span></label>
-            <label><input type="radio" name="bill" checked={annual} onChange={() => setAnnual(true)} /><span>Annual <small className="ml-1 text-xs text-muted-foreground">Save 2 mo</small></span></label>
+        {/* Product grid */}
+        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {PRODUCTS.map((p) => (
+            <div key={p.key} className="relative">
+              {p.badge && (
+                <span className="absolute -top-3 left-1/2 z-10 -translate-x-1/2 rounded-full bg-secondary px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-primary">
+                  {p.badge}
+                </span>
+              )}
+              <PricingCard tier={p} highlighted={false} features={p.features} />
+            </div>
+          ))}
+        </div>
+
+        {/* All-access bundle */}
+        <div className="mt-10 flex justify-center">
+          <div className="w-full max-w-sm">
+            <PricingCard tier={BUNDLE} highlighted features={BUNDLE.features} />
           </div>
         </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {TIERS.map((t) => {
-            const price = annual && t.price.startsWith("$") && t.price !== "$0" ? `$${Math.round(Number(t.price.slice(1)) * 10)}` : t.price;
-            const period = annual && t.price.startsWith("$") && t.price !== "$0" ? "/yr" : t.period;
-            return <PricingCard key={t.key} tier={{ ...t, price, period }} highlighted={t.highlighted} features={t.features} />;
-          })}
+        {/* Metered browser usage */}
+        <div className="mt-16">
+          <div className="mb-6 text-center">
+            <div className="mb-3 flex justify-center"><PillBadge>Browser Usage · Metered</PillBadge></div>
+            <h2 className="text-2xl font-bold sm:text-3xl">Pay per session — Browserbase-style</h2>
+            <p className="mt-2 text-muted-foreground">Every Xtreme Browser plan includes sessions. Go over and you pay a transparent per-session rate.</p>
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-border bg-[#FAFAFA]">
+            <table className="w-full text-left text-sm">
+              <thead className="border-b border-border bg-white text-xs uppercase tracking-wide text-muted-foreground">
+                <tr>
+                  <th className="px-5 py-4 font-bold">Usage tier</th>
+                  <th className="px-5 py-4 font-bold">Sessions</th>
+                  <th className="px-5 py-4 font-bold">Overage rate</th>
+                  <th className="px-5 py-4 font-bold">Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {USAGE_TIERS.map((u) => (
+                  <tr key={u.tier} className="border-b border-border last:border-0">
+                    <td className="px-5 py-4 font-semibold">{u.tier}</td>
+                    <td className="px-5 py-4">{u.sessions}</td>
+                    <td className="px-5 py-4 font-semibold text-secondary">{u.overage}</td>
+                    <td className="px-5 py-4 text-muted-foreground">{u.note}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        <p className="mt-10 text-center text-xs text-muted-foreground">
-          Preview pricing for the draft packet. Production billing requires operator approval and a connected payment provider.
-        </p>
+        {/* CTA */}
+        <div className="mt-16 text-center">
+          <div className="flex flex-wrap justify-center gap-4">
+            <WideLink to="/hub">Connect Your AI <ArrowRight /></WideLink>
+            <OutlineLink to="/xtreme-browser">Explore Xtreme Browser <ArrowRight /></OutlineLink>
+          </div>
+          <p className="mt-6 text-xs text-muted-foreground">
+            Preview pricing for the draft packet. Production billing requires operator approval and a connected payment provider.
+            Beta products (Xtreme Comms) are feature-incomplete and may change.
+          </p>
+        </div>
       </div>
       <SiteFooter />
     </div>
