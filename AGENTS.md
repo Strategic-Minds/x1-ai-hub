@@ -32,3 +32,13 @@ npx skills add base44/skills
 - Prefer the existing Base44 CLI workflow over adding new npm scripts for Base44-specific tasks.
 - Reuse the existing SDK client and Vite plugin patterns before adding new Base44 integration paths.
 - Run the relevant checks from `package.json` before finishing code changes.
+
+## Base44 Sandbox Setup (docker-compose.base44.yml)
+
+- The app runs via `base44 dev` inside a `node:22` container with Deno installed (binary downloaded directly to `/root/.deno/bin/` — the official install script hangs on a shell-setup post-install step, so we download the zip directly).
+- `base44 login` uses a device-code flow: it prints a verification code + URL (`https://app.base44.com/login/device`) that must be confirmed in a browser. Auth state persists in the `base44_cli` Docker volume at `/root/.base44/`.
+- `base44 link --app-id <id>` writes `base44/.app.jsonc` (gitignored) — the app-id pointer. The app ID for this project is `6aaef79ff4bb60f5a620cc42`.
+- `base44 dev` starts a local Deno backend on port 4400 and a Vite frontend on port 5173. The `@base44/vite-plugin` proxies `/api` calls to the local backend. Compose maps host port 3000 → container 5173.
+- `vite.config.js` has `server: { host: true }` so Vite binds 0.0.0.0 (required for Docker port mapping). The `__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS` env var is passed for Vite's allowed-hosts check.
+- The local backend serves entities/functions/auth locally (in-memory, wiped on restart). Public settings and OAuth are forwarded to the production app.
+- No external secrets are required to boot — the app authenticates via the Base44 CLI login stored in the Docker volume.
