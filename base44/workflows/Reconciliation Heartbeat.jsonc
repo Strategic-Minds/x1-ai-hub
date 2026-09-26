@@ -1,0 +1,44 @@
+{
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "*/5 * * * *",
+      "one_time_date": null,
+      "timezone": "America/New_York",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "name": "Reconciliation Heartbeat",
+  "description": "Deterministic reconciliation heartbeat — compares expected state (validation plans, work-packet statuses, session readiness) against actual state (benchmark evidence, receipt statuses) every 5 minutes. Surfaces drift, updates receipt statuses from real evidence, recalculates readiness scores, and emits intelligence signals.",
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "reconciliation_heartbeat",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "reconcile": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "reconciler"
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Run reconciliation cycle",
+            "description": "Reconcile expected vs actual state"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "*/5 * * * *",
+      "one_time_date": null,
+      "timezone": "America/New_York",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "name": "Capability Dispatch",
+  "description": "Wires registered capabilities to executors and dispatches ready work packets every 5 minutes. Matches work-packet requirements against the capability registry, creates swarm agent assignments, blocks packets with missing capabilities, and routes protected actions to approval.",
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "capability_dispatch",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "dispatch": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "capabilityDispatcher"
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Run capability dispatch",
+            "description": "Wire capabilities and dispatch packets"
+          }
+        }
+      }
+    ]
+  }
+}

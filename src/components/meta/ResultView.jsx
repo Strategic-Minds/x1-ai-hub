@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Search, FileText, CheckCircle2, AlertTriangle, Shield, ArrowRight, Network, ListChecks } from "lucide-react";
+import { base44 } from "@/api/base44Client";
 import WorkPacketCard from "./WorkPacketCard";
 import DependencyGraph from "./DependencyGraph";
 import ReadinessScore from "./ReadinessScore";
 import CapabilityMap from "./CapabilityMap";
 import { PillBadge } from "@/components/brand/BrandButton";
+
+const EXECUTOR_CAPS = {
+  BASE44: ["app_build", "entity_operations", "frontend_render", "backend_function", "workflow_automation", "user_auth"],
+  CODEX: ["code_generation", "code_review", "refactoring", "test_generation", "documentation"],
+  GITHUB_AGENT: ["repo_clone", "branch_create", "pull_request", "merge_branch"],
+  VERCEL: ["deployment", "edge_function", "domain_config", "env_management"],
+  SUPABASE: ["database_query", "auth_management", "storage_operations", "migration_run"],
+  RAILWAY: ["backend_hosting", "database_hosting"],
+  XTREME_CLOUD_BROWSER: ["web_browsing", "web_scraping", "screenshot_capture"],
+  XTREME_COMMUNICATIONS: ["email_send", "sms_send", "push_notification"],
+  XTREME_SEO_GENERATOR: ["seo_content", "meta_tags", "sitemap_generation"],
+  VISION_CORTEX: ["visual_analysis", "screenshot_comparison", "layout_validation"],
+  EXTERNAL_MCP: ["external_tool_call"],
+  HUMAN: ["manual_review", "approval", "decision_making"],
+};
 
 function Section({ icon, title, children }) {
   return (
@@ -17,13 +33,55 @@ function Section({ icon, title, children }) {
 
 export default function ResultView({ session, data, onNew }) {
   const { packets = [], receipts = [], approvals = [], jobs = [], links = [] } = data || {};
+  const [capItems, setCapItems] = useState([]);
   let bd = {};
   try { bd = session.readiness_breakdown ? JSON.parse(session.readiness_breakdown) : {}; } catch { bd = {}; }
-  const capItems = [];
-  const seen = new Set();
-  links.forEach((l) => { const c = (l.asset_type || "asset").toUpperCase(); if (!seen.has(c)) { seen.add(c); capItems.push({ category: c, status: "AVAILABLE" }); } });
-  jobs.forEach((j) => { capItems.push({ category: (j.query || "gap").slice(0, 18).toUpperCase(), status: j.category || "MISSING" }); });
-  if (capItems.length === 0) capItems.push({ category: "AI", status: "UNVERIFIED" });
+
+  // Load real capability status from the Capability registry
+  useEffect(() => {
+    (async () => {
+      const items = [];
+      const seen = new Set();
+      // Add matched assets as AVAILABLE
+      links.forEach((l) => {
+        const c = (l.asset_type || "asset").toUpperCase();
+        if (!seen.has(c)) { seen.add(c); items.push({ category: c, name: c, status: "AVAILABLE" }); }
+      });
+      // Add gaps as MISSING
+      jobs.forEach((j) => {
+        items.push({ category: (j.query || "gap").slice(0, 18).toUpperCase(), name: j.query || "gap", status: j.category || "MISSING" });
+      });
+
+      // Load registered capabilities and infer status from packet executors
+      try {
+        const capabilities = await base44.entities.Capability.list("-created_date", 200).catch(() => []);
+        const capByKey = {};
+        for (const c of (capabilities || [])) capByKey[c.key] = c;
+
+        // For each packet's recommended executor, check capability availability
+        const executorSet = new Set();
+        for (const p of packets) {
+          const ex = (p.recommended_executor || "BASE44").toUpperCase();
+          executorSet.add(ex);
+        }
+
+        for (const ex of executorSet) {
+          const exCaps = EXECUTOR_CAPS[ex] || [];
+          const available = exCaps.filter((k) => capByKey[k] && capByKey[k].enabled);
+          const missing = exCaps.filter((k) => !capByKey[k] || !capByKey[k].enabled);
+          const status = missing.length === 0 ? "AVAILABLE" : available.length > 0 ? "PARTIAL" : "MISSING";
+          if (!seen.has(ex)) {
+            seen.add(ex);
+            items.push({ category: ex, name: ex, status, executor: ex });
+          }
+        }
+
+        if (items.length === 0) items.push({ category: "AI", name: "AI", status: "UNVERIFIED" });
+      } catch { /* ignore */ }
+
+      setCapItems(items);
+    })();
+  }, [packets, links, jobs]);
 
   return (
     <div className="space-y-4">

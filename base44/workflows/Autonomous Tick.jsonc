@@ -32,10 +32,34 @@
           "with": {
             "function_name": "autonomousOrchestrator"
           },
-          "then": "end",
           "x-base44": {
             "title": "Run autonomous tick",
             "description": "Advance projects one stage"
+          }
+        }
+      },
+      {
+        "reconcile": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "reconciler"
+          },
+          "x-base44": {
+            "title": "Reconcile state",
+            "description": "Compare expected vs actual state, update receipts from evidence"
+          }
+        }
+      },
+      {
+        "dispatch": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "capabilityDispatcher"
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Dispatch capabilities",
+            "description": "Wire capabilities to executors and dispatch ready packets"
           }
         }
       }

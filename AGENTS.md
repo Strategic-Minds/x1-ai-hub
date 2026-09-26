@@ -24,6 +24,25 @@ npx skills add base44/skills
 - `vite.config.js`: Vite config and Base44 Vite plugin setup.
 - `.env.local`: local-only environment values; never commit secrets.
 
+## Backend Functions
+
+- `autonomousOrchestrator` — 24/7 assembly-line tick: advances projects one stage, runs validation gates, writes audit receipts.
+- `reconciler` — deterministic reconciliation heartbeat: compares expected state (validation plans, packet statuses, session readiness) against actual state (benchmark evidence, receipt statuses). Updates receipts from real evidence, recalculates readiness scores, detects drift, emits intelligence signals.
+- `capabilityDispatcher` — capability wiring: maps registered Capabilities to executors (BASE44, CODEX, GITHUB_AGENT, VERCEL, SUPABASE, etc.), dispatches ready work packets to swarm agents, blocks packets with missing capabilities, creates discovery jobs for gaps.
+- `metaAgentAnalyze` — LLM-powered goal decomposition: classifies intent/system type, matches arsenal assets, detects capability gaps, generates ordered work packets with validation plans.
+- `benchmarkRunner` — deterministic URL benchmarking against 5 quality gates (static, functional, security, visual, operational).
+- `supabaseExec` — runs SQL against the connected Supabase project (admin-only).
+- `webScraper` — scrapes a public URL for research and lead generation.
+- `chatCompletion` — LLM chat completion.
+- `driveManager` — Google Drive file operations.
+- `mcpGenerator` — generates MCP server configuration.
+
+## Scheduled Workflows
+
+- `Autonomous Tick` (every 5 min) — chains: orchestrator → reconciler → capabilityDispatcher.
+- `Reconciliation Heartbeat` (every 5 min) — standalone reconciler cycle.
+- `Capability Dispatch` (every 5 min) — standalone capability dispatch cycle.
+
 ## Working Notes
 
 - Use `base44 dev` as the default local development command when you need the local Base44 backend. It can run the backend and frontend together.

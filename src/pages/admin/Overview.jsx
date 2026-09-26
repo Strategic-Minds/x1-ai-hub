@@ -21,25 +21,48 @@ function GrowthTooltip({ active, payload, label }) {
 }
 
 export default function Overview() {
-  const [d, setD] = useState({ sessions: 0, packets: 0, benchmarks: 0, pass: 0, audits: 0, assets: 0, agents: 0, recent: [], series: [] });
+  const [d, setD] = useState({ sessions: 0, packets: 0, benchmarks: 0, pass: 0, audits: 0, assets: 0, agents: 0, recent: [], series: [], reconStats: { discrepancies: 0, receipts_updated: 0, packets_unblocked: 0, last_cycle: "never" }, enabledCaps: 0, totalCaps: 0 });
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     (async () => {
       try {
-        const [sessions, packets, benchmarks, audits, assets, agents] = await Promise.all([
+        const [sessions, packets, benchmarks, audits, assets, agents, signals, capabilities] = await Promise.all([
           base44.entities.MetaSession.list("-created_date", 200).catch(() => []),
           base44.entities.WorkPacket.list("-created_date", 200).catch(() => []),
           base44.entities.Benchmark.list("-created_date", 200).catch(() => []),
           base44.entities.AuditEvent.list("-created_date", 10).catch(() => []),
           base44.entities.Asset.list("-created_date", 200).catch(() => []),
           base44.entities.SwarmAgent.list("-created_date", 200).catch(() => []),
+          base44.entities.IntelligenceSignal.filter({ source: "reconciler" }, "-created_date", 5).catch(() => []),
+          base44.entities.Capability.list("-created_date", 200).catch(() => []),
         ]);
         const pass = (benchmarks || []).filter((b) => b.status === "pass").length;
         const series = Array.from({ length: 12 }, (_, i) => {
           const ops = Math.round(120 + i * 14 + (i % 3) * 8);
           return { m: `M${i + 1}`, ops, prev: i === 0 ? null : Math.round(120 + (i - 1) * 14 + ((i - 1) % 3) * 8) };
         });
-        setD({ sessions: (sessions || []).length, packets: (packets || []).length, benchmarks: (benchmarks || []).length, pass, audits: (audits || []).length, assets: (assets || []).length, agents: (agents || []).length, recent: audits || [], series });
+        // Parse last reconciliation cycle for real stats
+        let reconStats = { discrepancies: 0, receipts_updated: 0, packets_unblocked: 0, last_cycle: "never" };
+        const lastRecon = (signals || []).find((s) => s.metric === "discrepancies_found" || s.metric === "reconciliation_cycle");
+        if (lastRecon) {
+          try {
+            const notes = JSON.parse(lastRecon.notes || "{}");
+            reconStats = {
+              discrepancies: lastRecon.metric === "discrepancies_found" ? lastRecon.value : 0,
+              receipts_updated: notes.receipts_updated || 0,
+              packets_unblocked: notes.packets_unblocked || 0,
+              last_cycle: new Date(lastRecon.created_date).toLocaleTimeString()
+            };
+          } catch { /* ignore parse */ }
+        }
+        const enabledCaps = (capabilities || []).filter((c) => c.enabled).length;
+        setD({
+          sessions: (sessions || []).length, packets: (packets || []).length,
+          benchmarks: (benchmarks || []).length, pass, audits: (audits || []).length,
+          assets: (assets || []).length, agents: (agents || []).length,
+          recent: audits || [], series,
+          reconStats, enabledCaps, totalCaps: (capabilities || []).length
+        });
       } finally {
         setLoading(false);
       }
@@ -56,8 +79,8 @@ export default function Overview() {
         <StatCard label="Arsenal Assets" value={d.assets} sub="Tools, prompts, packages" />
         <StatCard label="Swarm Agents" value={d.agents} sub="Registered operators" />
         <StatCard label="Audit Events" value={d.audits} sub="Recent 10" />
-        <StatCard label="Reconciliation" value="5m" accent="text-primary" sub="Heartbeat cadence" />
-        <StatCard label="Production Readiness" value="—" sub="See Benchmarks" />
+        <StatCard label="Reconciliation" value={d.reconStats.discrepancies > 0 ? `${d.reconStats.discrepancies} drift` : "Clean"} accent={d.reconStats.discrepancies > 0 ? "text-secondary" : "text-primary"} sub={`Last: ${d.reconStats.last_cycle}`} />
+        <StatCard label="Capabilities Wired" value={`${d.enabledCaps}/${d.totalCaps}`} accent="text-primary" sub="Enabled / registered" />
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-3">
