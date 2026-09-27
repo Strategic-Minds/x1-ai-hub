@@ -1,0 +1,44 @@
+{
+  "name": "OperatingContract",
+  "type": "object",
+  "properties": {
+    "contract_id": {
+      "type": "string",
+      "title": "Contract ID"
+    },
+    "title": {
+      "type": "string",
+      "title": "Title"
+    },
+    "version": {
+      "type": "string",
+      "title": "Version"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["ACTIVE", "SUPERSEDED", "DRAFT"],
+      "default": "DRAFT"
+    },
+    "confirmed_at": {
+      "type": "string",
+      "format": "date",
+      "title": "Confirmed at"
+    },
+    "summary": {
+      "type": "string",
+      "title": "Summary",
+      "description": "Long-text summary of the operating contract"
+    },
+    "content": {
+      "type": "string",
+      "title": "Contract content",
+      "description": "Full verbatim Markdown contract text"
+    },
+    "tags": {
+      "type": "string",
+      "title": "Tags",
+      "description": "Comma-separated tags"
+    }
+  },
+  "required": ["contract_id", "title", "version", "status", "confirmed_at", "summary", "content", "tags"]
+}
